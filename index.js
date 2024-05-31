@@ -17,6 +17,7 @@ const currenciesRoutes = require('./routes/currenies.routes');
 const userRoutes = require('./routes/users.routes');
 const feedRoutes = require('./routes/feeds.routes');
 const { error } = require('console');
+const authRoutes = require('./routes/authuser.routes');
 
 const server = http.createServer((request, response) => {
     if(request.method === "GET"){
@@ -75,6 +76,7 @@ currencyExpress.use("/",currenciesRoutes)
 const app = express();
 app.use(express.json());
 app.use("/", feedRoutes);
+app.use("/auth", authRoutes)
 
 
 mongoose.connect(DB_URI).then(() => {
@@ -98,3 +100,4 @@ mongoose.connect(DB_URI).then(() => {
 }).catch(error => {
     console.log("Unsuccessfull connection to the database", error)
 })
+
