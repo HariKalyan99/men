@@ -21,6 +21,10 @@ const postLogin = async(request, response) => {
     try{
         const result = await Auth.login({...request.body});
         if(result.isLoggedIn){
+            response.cookie("remember_token", result.token, {
+                maxAge: 60*60*1000,
+                httpOnly: true
+            })
             return response.status(200).json(result);
         }else{
             return response.json({message: 'Invalid Credentials'})
